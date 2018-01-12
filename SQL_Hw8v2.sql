@@ -54,7 +54,7 @@ SELECT actor_id, first_name, last_name FROM actor where first_name = "HARPO" AND
 -- UPDATE actor SET `first_name` = "GROUCHO" 
 -- 	WHERE actor_id IN
 --     (
--- 		SELECT actor_id from (select actor_id from actor where `first_name` = "HARPO" and last_name = "WILLIAMS") as dummy);
+-- 		select actor_id from actor where `first_name` = "HARPO" and last_name = "WILLIAMS") as dummy);
 
 -- 4D. CHANGING NAME TO 'GROUCHO'
 SELECT actor_id, first_name, last_name from actor where first_name = "HARPO";
@@ -105,7 +105,9 @@ SELECT * FROM customer;
 SELECT first_name, last_name, SUM(amount) AS Total_Paid FROM payment INNER JOIN customer
 ON customer.customer_id = payment.customer_id GROUP BY last_name;
 
--- 7A. 
+-- 7A. "K" AND "Q" MOVIES IN THE USA, IN ENGLISH
+-- USING MULTIPLE BOOLEANS WITHIN THE 'WHERE' CLAUSE (AND/OR)
+-- THEN USING A SUBQUERY TO LOCATE ENGLISH TITLES
 SELECT * FROM film;
 SELECT * FROM language;
 
@@ -116,7 +118,9 @@ WHERE ((title LIKE "K%") OR (title LIKE "Q%")) AND title IN (
 		SELECT language_id FROM language
 		WHERE name = "English"));
         
--- 7B. "K" AND "Q" MOVIES IN THE USA
+-- 7B. LIST ALL ACTORS (FIRST AND LAST NAMES) FROM MOVIE "ALONE TRIP"
+-- USING SUBQUERIES TO LOCATE THE TITLE AND FILM ID, THEN ACTOR ID, THEN
+-- NAMES OF ACTORS IN HEAD QUERY
 SELECT * FROM film;
 SELECT * FROM film_actor;
 
@@ -128,6 +132,8 @@ WHERE actor_id IN (
         WHERE title = "ALONE TRIP"));
         
 -- 7C. EMAIL CAMPAIGN FOR CANADA
+-- USING A SERIES OF 'INNER JOINS' IN ORDER TO CREATE A TABLE WITH
+-- ONLY CANADIAN CUSTOMERS INFORMATION
 SELECT * FROM address;
 SELECT * FROM city;
 SELECT * FROM country;
@@ -139,6 +145,10 @@ INNER JOIN city ON address.city_id = city.city_id)
 INNER JOIN country ON country.country_id = city.country_id) WHERE country = "Canada";
 
 -- 7D. SEARCHING FOR FAMILY MOVIES
+-- USING A SUBQUERY, PULL CATEGORY ID FROM CATEGORY MATCHING 'FAMILY',
+-- THEN PULL FILM ID FROM FILM_CATEGORY WHERE IT MATCHES THE CATEGORY ID FOR FAMILY,
+-- THEN PULL TITLE FROM FILM WHERE IT MATCHES THE FILM_ID
+
 SELECT * FROM film_category;
 SELECT * FROM film;
 SELECT * FROM category;
