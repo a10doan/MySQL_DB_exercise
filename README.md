@@ -1,4 +1,4 @@
-## Unit 8 | Assignment - MySQL
+## Unit 8 | MySQL Database Build/Query
 
 Skills Tested:  SQL database queries, database and table creation within mySQL servers
 
